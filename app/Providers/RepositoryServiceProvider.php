@@ -47,6 +47,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'ConstruLink\Repositories\OrderRepository'
             , 'ConstruLink\Repositories\OrderRepositoryEloquent'
         );
+
+        $this->app->bind(
+            'ConstruLink\Repositories\CupomRepository'
+            , 'ConstruLink\Repositories\CupomRepositoryEloquent'
+        );
     }
 
 }
