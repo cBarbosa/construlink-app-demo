@@ -31,5 +31,7 @@ class UserTableSeeder extends Seeder
         factory(User::class, 10)->create()->each(function($u){
             $u->Client()->save(factory(Client::class)->make());
         });
+
+        factory(User::class, 3)->create(['role' => 'deliveryman']);
     }
 }

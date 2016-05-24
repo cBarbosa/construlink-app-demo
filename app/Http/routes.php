@@ -17,7 +17,6 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'web'],function(){
     Route::auth();
-
     Route::get('/home', 'HomeController@index');
 });
 
@@ -50,4 +49,8 @@ Route::group(['middleware' => 'auth.checkrole', 'prefix' => 'admin', 'as' => 'ad
     Route::get('products/create',           ['as'=>'products.create'    , 'uses' => 'ProductsController@create']);
     Route::post('products/store',           ['as'=>'products.store'     , 'uses' => 'ProductsController@store']);
     Route::get('products/destroy/{id}',     ['as'=>'products.destroy'   , 'uses' => 'ProductsController@destroy']);
+
+    Route::get('orders',                    ['as'=>'orders.index'     , 'uses' => 'OrdersController@index']);
+    Route::get('orders/{id}',               ['as'=>'orders.edit'     , 'uses' => 'OrdersController@edit']);
+    Route::post('orders/update/{id}',        ['as'=>'orders.update'     , 'uses' => 'OrdersController@update']);
 });
