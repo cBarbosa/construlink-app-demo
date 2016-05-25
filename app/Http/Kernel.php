@@ -29,6 +29,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \ConstruLink\Http\Middleware\VerifyCsrfToken::class,
+            \LucaDegasperi\OAuth2Server\Middleware\OAuthExceptionHandlerMiddleware::class,
         ],
 
         'api' => [
@@ -49,6 +50,14 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \ConstruLink\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'auth.checkrole' => \ConstruLink\Http\Middleware\Authenticate::class,
+        // middleware customizado
+        'auth.checkrole' => \ConstruLink\Http\Middleware\CheckRole::class,
+        // middleares oAuth
+        'oauth' => \LucaDegasperi\OAuth2Server\Middleware\OAuthMiddleware::class,
+        'oauth-user' => \LucaDegasperi\OAuth2Server\Middleware\OAuthUserOwnerMiddleware::class,
+        'oauth-client' => \LucaDegasperi\OAuth2Server\Middleware\OAuthClientOwnerMiddleware::class,
+        'check-authorization-params' => \LucaDegasperi\OAuth2Server\Middleware\CheckAuthCodeRequestMiddleware::class,
+        // middleware da api
+        'oauth.checkrole' => \ConstruLink\Http\Middleware\OAuthCheckRole::class
     ];
 }

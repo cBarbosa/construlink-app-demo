@@ -12,7 +12,7 @@
     <div class="container">
         <h3>Nova Categoria</h3>
 
-        {!! Form::open(['class'=>'form']) !!}
+        {!! Form::open(['route'=>'customer.order.store', 'class'=>'form']) !!}
 
         <div class="form-group">
             <label>Total:</label>

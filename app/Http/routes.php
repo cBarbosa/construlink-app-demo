@@ -30,7 +30,7 @@ Route::get('admin/categories', function () {
 });
 */
 
-Route::group(['middleware' => 'auth.checkrole', 'prefix' => 'admin', 'as' => 'admin.'],function(){
+Route::group(['middleware' => 'auth.checkrole:admin', 'prefix' => 'admin', 'as' => 'admin.'],function(){
     Route::get('categories',                ['as'=>'categories.index'   , 'uses' => 'CategoriesController@index']);
     Route::get('categories/edit/{id}',      ['as'=>'categories.edit'    , 'uses' => 'CategoriesController@edit']);
     Route::post('categories/update/{id}',   ['as'=>'categories.update'  , 'uses' => 'CategoriesController@update']);
@@ -59,6 +59,33 @@ Route::group(['middleware' => 'auth.checkrole', 'prefix' => 'admin', 'as' => 'ad
     Route::post('cupoms/store',             ['as'=>'cupoms.store'       , 'uses' => 'CupomsController@store']);
 });
 
-Route::group(['prefix' => 'customer', 'as' => 'customer.'],function(){
+Route::group(['middleware' => 'auth.checkrole:client', 'prefix' => 'customer', 'as' => 'customer.'],function(){
+    Route::get('order',                     ['as'=>'order.index'        , 'uses' => 'CheckoutsController@index']);
     Route::get('order/create',             ['as'=>'order.create'        , 'uses' => 'CheckoutsController@create']);
+    Route::post('order/store',             ['as'=>'order.store'        , 'uses' => 'CheckoutsController@store']);
+});
+
+Route::post('oauth/access_token', function() {
+    return Response::json(Authorizer::issueAccessToken());
+});
+
+
+Route::group(['middleware' => 'oauth', 'prefix' => 'api', 'as' => 'api.'],function(){
+
+    Route::group(['middleware' => 'oauth.checkrole:client', 'prefix' => 'client', 'as' => 'client.'],function(){
+
+    });
+
+    Route::group(['middleware' => 'oauth.checkrole:deliveryman', 'prefix' => 'deliveryman', 'as' => 'api.'],function(){
+
+    });
+
+
+    Route::get('pedidos', function(){
+        return [
+            'id' => 1
+            , 'client' => 'Charlie Brown'
+            , 'total' => 10
+        ];
+    });
 });

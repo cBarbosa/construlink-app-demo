@@ -154,6 +154,9 @@ return [
         Bestmomo\Scafold\ScafoldServiceProvider::class,
         //Laravel Collective HTML
         Collective\Html\HtmlServiceProvider::class,
+        //OAuth2
+        LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+        LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -213,6 +216,9 @@ return [
         //Illuminate HTML
         'Html'  => Collective\Html\HtmlFacade::class,
         'Form'  => Collective\Html\FormFacade::class,
+
+        //OAuth2
+        'Authorizer' => LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
     ],
 
 ];
